@@ -1,7 +1,7 @@
 # Linux-Automatic-Updater
 This is an automatic update script to update all your Debian and RHEL machines automatically. Alternative for unnatended-upgrades if you find this complicated to configure, specially for external repositories.
 
-I have scripted all the steps within the `Debian-auto-package-update.sh`, so you should only run this script and all below steps will be automatically configured. Enjoy!
+I have scripted all the steps within the `Debian-auto-package-update.sh` or `RHEL-auto-package-update.sh` based on your Distro, so you should only run this script and all below steps will be automatically configured. Enjoy!
 
 # Auto Package Update Script
 
