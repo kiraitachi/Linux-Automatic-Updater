@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Step 3: Create the auto-package-update.sh script
+# Create the auto-package-update.sh script
 cat > /usr/local/sbin/auto-package-update.sh <<'EOF'
 #!/bin/bash
 
