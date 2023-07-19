@@ -7,6 +7,17 @@ I have scripted all the steps within the `Debian-auto-package-update.sh` or `RHE
 
 The `auto-package-update.sh` script is a bash script that automates the process of updating packages on a Debian-based system, ensuring that the system stays up to date with the latest security patches and bug fixes. Also patches any package in external repositories within /etc/apt/sources.list.d
 
+# Compatibility
+The script has been tested and verified to work on the following systems:
+
+Proxmox Virtual Environment (PVE): Proxmox VE is an open-source virtualization platform based on Debian. The script has been tested and verified to work on Proxmox VE systems.
+
+Raspberry Pi with Debian Bullseye: The script has been tested and verified to work on Raspberry Pi devices running the Debian Bullseye operating system.
+
+Debian Bookworm: The script has been tested and verified to work on systems running Debian Bookworm, the codename for Debian's testing distribution.
+
+CentOS Stream 9: The script has been tested and verified to work on CentOS Stream 9, a rolling release distribution.
+
 ## How It Works
 
 1. **Update the Package List**: The script starts by updating the package list using the `apt update` command. This fetches the latest information about available packages from the repositories.
