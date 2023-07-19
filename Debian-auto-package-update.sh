@@ -17,5 +17,5 @@ EOF
 # Make the auto-package-update.sh script executable
 chmod +x /usr/local/sbin/auto-package-update.sh
 
-# Step 4: Set up a cron job to run the script daily at 4:00 AM
+# Set up a cron job to run the script daily at 4:00 AM
 (crontab -l ; echo "0 4 * * * /usr/local/sbin/auto-package-update.sh") | crontab -
