@@ -5,7 +5,7 @@ I have scripted all the steps within the `Debian-auto-package-update.sh` or `RHE
 
 # Auto Package Update Script
 
-The `auto-package-update.sh` script is a bash script that automates the process of updating packages on a Debian-based system, ensuring that the system stays up to date with the latest security patches and bug fixes. Also patches any package in external repositories within /etc/apt/sources.list.d
+The `auto-package-update.sh` script is a bash script that automates the process of updating packages on a Debian and RHEL based systems, ensuring that the system stays up to date with the latest security patches and bug fixes. Also patches any package in external repositories within /etc/apt/sources.list.d
 
 # Compatibility
 The script has been tested and verified to work on the following systems:
