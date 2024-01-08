@@ -1,6 +1,6 @@
 # Linux-Automatic-Updater
 <p align="center">
-  <img src="https://github.com/kiraitachi/PyShieldGUI/blob/main/Pyshield.png">
+  <img src="https://github.com/kiraitachi/Linux-Automatic-Updater/blob/main/LinuxAutomaticUpdater.png">
 </p>
 
 This is an automatic update script to update all your Debian and RHEL machines automatically. Alternative for unnatended-upgrades if you find this complicated to configure, specially for external repositories.
