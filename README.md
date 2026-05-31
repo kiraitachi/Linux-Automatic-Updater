@@ -1,6 +1,6 @@
 # Linux-Automatic-Updater
 <p align="center">
-  <img src="https://github.com/kiraitachi/Linux-Automatic-Updater/blob/main/LinuxAutomaticUpdater.png">
+  <img src="https://github.com/kiraitachi/Linux-Automatic-Updater/blob/main/Linux-Automatic-Updater.png">
 </p>
 
 # auto-update.sh
