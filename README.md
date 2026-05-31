@@ -3,34 +3,110 @@
   <img src="https://github.com/kiraitachi/Linux-Automatic-Updater/blob/main/LinuxAutomaticUpdater.png">
 </p>
 
-This is an automatic update script to update all your Debian and RHEL machines automatically. Alternative for unnatended-upgrades if you find this complicated to configure, specially for external repositories.
+# auto-update.sh
 
-I have scripted all the steps within the `Debian-auto-package-update.sh` or `RHEL-auto-package-update.sh` based on your Distro, so you should only run this script and all below steps will be automatically configured. Enjoy!
+A single-file Bash script that detects your Linux distribution, runs the appropriate package updates, and optionally schedules them to run automatically via cron.
 
-# Auto Package Update Script
+## Features
 
-The `auto-package-update.sh` script is a bash script that automates the process of updating packages on a Debian and RHEL based systems, ensuring that the system stays up to date with the latest security patches and bug fixes. Also patches any package in external repositories within /etc/apt/sources.list.d
+- **Automatic distro detection** — works across Debian, Ubuntu, Alpine, Arch, Fedora, RHEL, openSUSE, Gentoo, Void, Solus, NixOS, and many derivatives.
+- **One-command updates** — runs the correct package manager for your system without manual configuration.
+- **Built-in cron scheduler** — schedule daily auto-updates interactively or via CLI flags.
+- **Colorized terminal output** and optional logging to `/var/log/auto-update.log`.
+- **Safe execution** — uses `set -euo pipefail` and validates all user input.
 
-# Compatibility
-The script has been tested and verified to work on the following systems:
+## Supported Distributions
 
-* Proxmox Virtual Environment (PVE): Proxmox VE is an open-source virtualization platform based on Debian. The script has been tested and verified to work on Proxmox VE systems.
+| Distro Family | Detected IDs | Package Manager |
+|---------------|--------------|-----------------|
+| Debian-based | `debian`, `ubuntu`, `linuxmint`, `pop`, `elementary`, `zorin`, `kali`, `parrot`, `mx` | `apt` |
+| Alpine | `alpine` | `apk` |
+| Arch-based | `arch`, `manjaro`, `endeavouros`, `garuda`, `artix` | `pacman` / `yay` / `paru` |
+| RHEL-based | `fedora`, `rhel`, `centos`, `rocky`, `almalinux`, `oracle`, `scientific` | `dnf` / `yum` |
+| SUSE | `opensuse*`, `suse*` | `zypper` |
+| Gentoo | `gentoo`, `funtoo`, `calculate` | `emerge` |
+| Void | `void` | `xbps` |
+| Solus | `solus` | `eopkg` |
+| NixOS | `nixos` | `nix` |
 
-* Raspberry Pi with Debian Bullseye: The script has been tested and verified to work on Raspberry Pi devices running the Debian Bullseye operating system.
+## Installation
 
-* Debian Bookworm: The script has been tested and verified to work on systems running Debian Bookworm, the codename for Debian's testing distribution.
+1. Download or copy `auto-update.sh` to your machine.
+2. Make it executable:
+   ```bash
+   chmod +x /home/kira/auto-update.sh
+   ```
 
-* CentOS Stream 9: The script has been tested and verified to work on CentOS Stream 9, a rolling release distribution.
+## Usage
 
-## How It Works
+```bash
+./auto-update.sh [OPTION]
+```
 
-1. **Update the Package List**: The script starts by updating the package list using the `apt update` command. This fetches the latest information about available packages from the repositories.
+### Options
 
-2. **Upgrade Installed Packages**: After updating the package list, the script proceeds to upgrade all installed packages without asking for confirmation. It achieves this using the `apt -y full-upgrade` command. This ensures that the system's software is updated to the latest versions available in the repositories.
+| Option | Description |
+|--------|-------------|
+| *(no args)* | Detect OS, run updates, and interactively prompt to schedule a cron job |
+| `--run-auto` | Run updates silently and log to `/var/log/auto-update.log` (intended for cron) |
+| `--schedule HH:MM` | Schedule a daily cron job at the specified 24-hour time |
+| `--unschedule` | Remove the existing auto-update cron job |
+| `--help`, `-h` | Show help text and exit |
 
-3. **Remove Old Packages**: The script also takes care of cleaning up the system by removing old, no longer needed packages. It does this using the `apt -y autoremove` command, which frees up disk space and keeps the system clean.
+### Examples
 
-4. **Cron Job for Automation**: To enable automated updates, the script sets up a cron job to run daily at 4:00 AM. It achieves this by adding a new entry to the system's crontab using the `(crontab -l ; echo "0 4 * * * /usr/local/sbin/auto-package-update.sh") | crontab -` command. The cron job ensures that the script runs at the specified time regularly, keeping the system up to date without manual intervention.
+**Run updates interactively**
+```bash
+./auto-update.sh
+```
+
+**Run updates and schedule them daily at 02:30**
+```bash
+./auto-update.sh --schedule 02:30
+```
+
+**Run updates silently (useful in a cron/systemd context)**
+```bash
+./auto-update.sh --run-auto
+```
+
+**Remove the scheduled cron job**
+```bash
+./auto-update.sh --unschedule
+```
+
+## Cron Scheduling
+
+When you run `./auto-update.sh` with no arguments, the script will prompt you for a daily update time in `HH:MM` format. Enter a time (e.g., `02:30`) or type `skip` to disable automatic scheduling.
+
+The cron entry is added to the current user's crontab. You can verify it with:
+```bash
+crontab -l
+```
+
+If you schedule as root, the script runs with root privileges automatically. If running as a regular user, ensure the user has passwordless sudo or run the script under root.
+
+## Logging
+
+When executed with `--run-auto`, all output is appended to:
+```
+/var/log/auto-update.log
+```
+
+Each run logs a timestamp and the detected distribution name.
+
+## Requirements
+
+- Bash 4.x or later
+- Root privileges (or passwordless sudo) for most package managers
+- `cron` installed and running if you use the scheduling features
+
+## Notes
+
+- The script uses `set -euo pipefail` for strict error handling.
+- On Arch-based systems, it prefers `yay` or `paru` if installed, falling back to `pacman`.
+- On RHEL-based systems, it prefers `dnf` over `yum` when available.
+- Colorized output is automatically suppressed when not attached to a TTY.
 
 ## Important Note
 
